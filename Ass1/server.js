@@ -1,18 +1,16 @@
-const http = require("http");
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
+// Middleware to parse JSON
+app.use(express.json());
 
-  // Example numbers
-  const a = 10;
-  const b = 20;
+// Import student routes
+const studentRoutes = require('./students'); // make sure student.js is in same folder
 
-  const sum = a + b;
+// Use /students route
+app.use('/students', studentRoutes);
 
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end(`Addition of ${a} and ${b} is: ${sum}`);
-
-});
-
-server.listen(4000, () => {
-  console.log("Server running on port 4000");
+// Start server
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
 });
